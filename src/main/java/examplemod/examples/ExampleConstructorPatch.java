@@ -1,6 +1,7 @@
 package examplemod.examples;
 
 import necesse.engine.modLoader.annotations.ModConstructorPatch;
+import necesse.entity.mobs.PlayerMob;
 import necesse.entity.mobs.friendly.critters.RabbitMob;
 import net.bytebuddy.asm.Advice;
 
@@ -19,8 +20,6 @@ public class ExampleConstructorPatch {
     @Advice.OnMethodExit
     static void onExit(@Advice.This RabbitMob rabbitMob) {
         rabbitMob.setSpeed(60);
-        // Debug message to know it's working
-        System.out.println("Exited RabbitMob constructor: " + rabbitMob.getStringID());
     }
-
 }
+

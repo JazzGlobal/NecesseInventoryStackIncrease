@@ -1,19 +1,33 @@
 package examplemod;
 
+import com.jubiman.customdatalib.environment.ClientEnvironment;
+import com.jubiman.customdatalib.player.CustomPlayerRegistry;
 import examplemod.examples.*;
+import examplemod.playermob.LevelSystem;
 import necesse.engine.commands.CommandsManager;
 import necesse.engine.modLoader.annotations.ModEntry;
 import necesse.engine.registries.*;
+import necesse.entity.mobs.MobWasKilledEvent;
+import necesse.entity.mobs.PlayerMob;
 import necesse.gfx.gameTexture.GameTexture;
 import necesse.inventory.recipe.Ingredient;
 import necesse.inventory.recipe.Recipe;
 import necesse.inventory.recipe.Recipes;
 import necesse.level.maps.biomes.Biome;
 
+import java.util.ArrayList;
+
 @ModEntry
 public class ExampleMod {
 
+    public static Boolean DEBUG = true;
+    public static LevelSystem levelSystem;
+    public static LevelSystemManager levelSystemManager;
+
     public void init() {
+        levelSystem = new LevelSystem();
+        levelSystemManager = new LevelSystemManager(levelSystem, new ArrayList<>());
+
         System.out.println("Hello world from my example mod!");
 
         // Register our tiles
@@ -35,8 +49,11 @@ public class ExampleMod {
 
         // Register our buff
         BuffRegistry.registerBuff("examplebuff", new ExampleBuff());
-
         PacketRegistry.registerPacket(ExamplePacket.class);
+        
+        CustomPlayerRegistry.registerClass(ExamplePlayersHandler.name, ExamplePlayersHandler.class);
+        PacketRegistry.registerPacket(PacketSyncExamplePlayer.class);
+
     }
 
     public void initResources() {

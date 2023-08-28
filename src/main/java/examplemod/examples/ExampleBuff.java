@@ -1,5 +1,6 @@
 package examplemod.examples;
 
+import necesse.engine.localization.message.GameMessage;
 import necesse.entity.mobs.buffs.ActiveBuff;
 import necesse.entity.mobs.buffs.BuffModifiers;
 import necesse.entity.mobs.buffs.staticBuffs.Buff;
